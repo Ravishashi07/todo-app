@@ -3,17 +3,23 @@ let editIndex = null;
 
 
 
-document.addEventListener('DOMContentLoaded', () =>{
-    if (!localStorage.getItem("currentUser"))  {
-    window.location.href = "/"; 
-}
-    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+        window.location.href = "/"; 
+        return;
+    }
+
+    const storedTasks = JSON.parse(localStorage.getItem(`tasks_${currentUser.username}`));
     if (storedTasks) {
         storedTasks.forEach((task) => tasks.push(task));
     }
+
     updateTasksList();
     updateStats();
 });
+
 window.addEventListener("pageshow", function (e) {
   if (!localStorage.getItem("currentUser")) {
     window.location.href = "/";
@@ -21,14 +27,17 @@ window.addEventListener("pageshow", function (e) {
 });
 
 
-if (window.location.href.includes('?#')) {
+if (window.location.search) {
     history.replaceState(null, '', window.location.pathname);
 }
 
 
 const saveTasks = () => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) return;
+    localStorage.setItem(`tasks_${currentUser.username}`, JSON.stringify(tasks));
 };
+
 
 const showToast = (message) => {
     const toast = document.querySelector("#toast");
