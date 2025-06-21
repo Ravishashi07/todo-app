@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <link rel="stylesheet" href="todo.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+</head>
+<body style="display: none">
+    <script>
+  const user = localStorage.getItem("currentUser");
+  if (!user) {
+    window.location.href = "/login/login.html";
+  } else {
+    document.body.style.display = "block";
+  }
+</script>
+
+
+
+   <div id="header">
+        <a href="#" id="main-name">TODO List</a>
+        <input id="searchInput" type="text" placeholder="Search tasks...">
+        <div class="profile-container">
+            <svg  id="profileIcon" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="black"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <p id="usernameDisplay">👤 Username</p>
+                <button id="logoutBtn">🚪 Logout</button>
+            </div>
+        </div>
+   </div>
+
+        <div class="filter-wrapper">
+            <label for="filter">Filter By:</label>
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option> 
+            </select>
+        </div>
+ 
+        <div class="container">
+           <div class="stats-container">
+            <div class="details">
+                <h1>Add Your Goals</h1>
+                <p>Keep it up!</p>
+                <div id="progressBar">
+                    <div id="progress">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-numbers">
+                <p id="numbers">0 / 0</p>
+            </div>
+           </div>
+
+           <form id="taskForm" action="">
+            <input id="taskInput" type="text" placeholder="Enter a task:">
+            <button id="newTask" type="submit">+</button>
+
+           </form>
+
+           <ul id="task-list"></ul>
+
+      
+    </div>
+
+
+
+    <div id="toast" class="toast"></div>
+
+
+ 
+    <script src="todo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+</body>
+</html>
