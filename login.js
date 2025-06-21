@@ -16,7 +16,9 @@ window.addEventListener("DOMContentLoaded", () => {
     if (rememberedUsername && rememberedPassword) {
         document.querySelector("#loginUsername").value = rememberedUsername;
         document.querySelector("#loginPassword").value = rememberedPassword;
-        document.querySelector("#rememberMe").checked = true;
+       const rememberCheckbox = document.querySelector("#rememberMe");
+        const rememberMeChecked = rememberCheckbox ? rememberCheckbox.checked : false;
+
     } else {
         document.querySelector("#loginUsername").value = "";
         document.querySelector("#loginPassword").value = "";
