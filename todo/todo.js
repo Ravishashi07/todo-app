@@ -5,7 +5,7 @@ let editIndex = null;
 
 document.addEventListener('DOMContentLoaded', () =>{
     if (!localStorage.getItem("currentUser"))  {
-    window.location.href = "/login/login.html"; 
+    window.location.href = "/"; 
 }
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
     if (storedTasks) {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 });
 window.addEventListener("pageshow", function (e) {
   if (!localStorage.getItem("currentUser")) {
-    window.location.href = "/login/login.html";
+    window.location.href = "/";
   }
 });
 
@@ -194,7 +194,7 @@ document.querySelector("#logoutBtn").addEventListener('click',()=>{
     localStorage.removeItem("currentUser");
     localStorage.removeItem("rememberedUsername");
     localStorage.removeItem("rememberedPassword");
-    window.location.href="../login/login.html";
+    window.location.href="/";
 });
 
 window.addEventListener("beforeunload", () => {

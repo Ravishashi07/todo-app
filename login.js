@@ -93,7 +93,7 @@ loginForm.addEventListener('submit', (e) => {
         }
 
         setTimeout(() => {
-            window.location.href = "../todo/todo.html";
+            window.location.href = "todo/todo.html";
         }, 1000);
     } else {
         showToast("❌ Invalid credentials.", "error");
