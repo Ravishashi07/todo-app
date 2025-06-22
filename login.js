@@ -9,6 +9,20 @@ signInBtnLink.addEventListener('click', () => {
     wrapper.classList.remove('active');
 });
 
+const updateLabels = () => {
+    const inputs = document.querySelectorAll('.input-group input');
+    inputs.forEach(input => {
+        const label = input.nextElementSibling;
+        if (input.value.trim() !== '') {
+            label.style.top = '-5px';
+            label.style.fontSize = '12px';
+        } else {
+            label.style.top = '50%';
+            label.style.fontSize = '16px';
+        }
+    });
+};
+
 window.addEventListener("DOMContentLoaded", () => {
     const rememberedUsername = localStorage.getItem("rememberedUsername");
     const rememberedPassword = localStorage.getItem("rememberedPassword");
@@ -18,12 +32,30 @@ window.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#loginPassword").value = rememberedPassword;
        const rememberCheckbox = document.querySelector("#rememberMe");
         const rememberMeChecked = rememberCheckbox ? rememberCheckbox.checked : false;
+                updateLabels();
+
 
     } else {
         document.querySelector("#loginUsername").value = "";
         document.querySelector("#loginPassword").value = "";
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('.input-group input');
+    inputs.forEach(input => {
+        input.addEventListener('input', updateLabels);
+        input.addEventListener('focus', updateLabels);
+        input.addEventListener('blur', updateLabels);
+        
+        input.addEventListener('animationstart', (e) => {
+            if (e.animationName === 'onAutoFillStart') {
+                updateLabels();
+            }
+        });
+    });
+});
+
 
 const showToast = (message, type = "default") => {
     const toast = document.querySelector("#toast");
@@ -68,6 +100,7 @@ signUpForm.addEventListener('submit', (e) => {
     showToast("✅ Signup successful! Please log in.", "success");
     wrapper.classList.remove('active');
     signUpForm.reset();
+    updateLabels(); 
 });
 
 const loginForm = document.querySelector("#loginForm");
@@ -102,4 +135,5 @@ loginForm.addEventListener('submit', (e) => {
     }
 
     loginForm.reset();
+     updateLabels();
 });

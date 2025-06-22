@@ -1,10 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  -webkit-tap-highlight-color: transparent !important;
 }
+
+*:focus {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+input:focus,
+button:focus,
+select:focus,
+textarea:focus,
+a:focus {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -12,6 +29,7 @@ body {
   min-height: 100vh;
   background: #000;
 }
+
 .wrapper {
   position: relative;
   width: 400px;
@@ -22,10 +40,22 @@ body {
   padding: 40px;
   overflow: hidden;
 }
+
+@keyframes animate {
+  0% {
+    box-shadow: 0 0 50px #0ef;
+  }
+  50% {
+    box-shadow: 0 0 80px #0ef, 0 0 120px #0ef;
+  }
+  100% {
+    box-shadow: 0 0 50px #0ef;
+  }
+}
+
 .wrapper:hover {
   animation: animate 1s linear infinite;
 }
-
 
 .form-wrapper {
   position: absolute;
@@ -56,21 +86,18 @@ body {
   transform: translateY(0);
 }
 
-
-
 h2 {
   font-size: 30px;
   color: #fff;
   text-align: center;
 }
 
-
-
 .input-group {
   position: relative;
   margin: 30px 0;
   border-bottom: 2px solid #fff;
 }
+
 .input-group label {
   position: absolute;
   top: 50%;
@@ -79,8 +106,10 @@ h2 {
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: all 0.5s ease;
 }
+
+
 .input-group input {
   width: 320px;
   height: 40px;
@@ -90,23 +119,61 @@ h2 {
   background: transparent;
   border: none;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
-.input-group input:focus~label,
-.input-group input:valid~label {
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label,
+.input-group:has(input:focus) label {
   top: -5px;
+  font-size: 12px;
+  transform: translateY(0);
 }
+
+.input-group input:not(:placeholder-shown) ~ label {
+  top: -5px;
+  font-size: 12px;
+  transform: translateY(0);
+}
+
+.input-group input:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 .remember {
   margin: -5px 0 15px 5px;
 }
+
 .remember label {
   color: #fff;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
 }
+
 .remember label input {
   accent-color: #0ef;
-  margin-right:2px;
-  transform:translateY(2px);
+  margin-right: 8px;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
+
+.remember label input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 button {
   position: relative;
   width: 100%;
@@ -120,22 +187,52 @@ button {
   border-radius: 30px;
   border: none;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s ease;
 }
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 239, 255, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px #0ef !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 .signUp-link {
   font-size: 14px;
   text-align: center;
   margin: 15px 0;
 }
+
 .signUp-link p {
   color: #fff;
 }
+
 .signUp-link p a {
   color: #0ef;
   text-decoration: none;
   font-weight: 500;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s ease;
 }
+
 .signUp-link p a:hover {
   text-decoration: underline;
+}
+
+.signUp-link p a:focus {
+  outline: none !important;
+  text-decoration: underline;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .toast {
@@ -153,15 +250,17 @@ button {
   pointer-events: none;
   transition: opacity 0.4s ease, transform 0.4s ease;
   z-index: 9999;
-  color: white; 
+  color: white;
+  max-width: 90vw; 
+  word-wrap: break-word;
 }
 
 .toast.success {
-  color: #00ff6e; 
+  color: #00ff6e;
 }
 
 .toast.error {
-  color: #ff4d4f; 
+  color: #ff4d4f;
 }
 
 .toast.show {
@@ -169,6 +268,48 @@ button {
   transform: translateX(-50%) translateY(0);
 }
 
+@keyframes onAutoFillStart {
+  from {  }
+  to { }
+}
+
+@keyframes onAutoFillCancel {
+  from {  }
+  to {  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  animation-duration: 0.001s;
+  animation-name: onAutoFillStart;
+  transition: background-color 50000s ease-in-out 0s;
+}
+
+input:-webkit-autofill ~ label,
+input:-webkit-autofill:hover ~ label,
+input:-webkit-autofill:focus ~ label,
+input:-webkit-autofill:active ~ label {
+  top: -5px !important;
+  font-size: 12px !important;
+  transform: translateY(0) !important;
+}
+
+input:not(:-webkit-autofill) {
+  animation-duration: 0.001s;
+  animation-name: onAutoFillCancel;
+}
+
+input:-moz-autofill ~ label {
+  top: -5px !important;
+  font-size: 12px !important;
+  transform: translateY(0) !important;
+}
 
 @media screen and (max-width: 1024px) {
   body {
@@ -204,6 +345,7 @@ button {
     min-height: 500px;
     padding: 30px 25px;
     margin: 0 auto;
+    overflow: hidden;
   }
   
   .wrapper:hover {
@@ -211,27 +353,34 @@ button {
   }
   
   .form-wrapper {
-    position: static;
-    height: auto;
-    min-height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    padding: 30px 25px;
     transition: transform 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .form-wrapper.sign-in {
+    transform: translateY(0);
+  }
+  
+  .form-wrapper.sign-up {
+    transform: translateY(100%);
   }
   
   .wrapper.active .form-wrapper.sign-in {
     transform: translateY(-100%);
   }
   
-  .wrapper .form-wrapper.sign-up {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    padding: 30px 25px;
-    height: auto;
-    min-height: 400px;
-  }
-  
   .wrapper.active .form-wrapper.sign-up {
-    transform: translateY(-100%);
+    transform: translateY(0);
   }
   
   h2 {
@@ -246,7 +395,7 @@ button {
   .input-group input {
     width: 100%;
     height: 45px;
-    font-size: 16px;
+    font-size: 16px !important; 
     padding: 0 10px;
   }
   
@@ -310,15 +459,12 @@ button {
     padding: 25px 20px;
     border-radius: 15px;
     box-shadow: 0 0 30px #0ef;
+    overflow: hidden;
   }
   
   .form-wrapper {
-    min-height: 380px;
-  }
-  
-  .wrapper .form-wrapper.sign-up {
+    min-height: 450px;
     padding: 25px 20px;
-    min-height: 380px;
   }
   
   h2 {
@@ -332,7 +478,7 @@ button {
   
   .input-group input {
     height: 45px;
-    font-size: 16px;
+    font-size: 16px !important;
     padding: 0 12px;
   }
   
@@ -341,8 +487,9 @@ button {
     left: 12px;
   }
   
-  .input-group input:focus~label,
-  .input-group input:valid~label {
+  .input-group input:focus ~ label,
+  .input-group input:valid ~ label,
+  .input-group input:not(:placeholder-shown) ~ label {
     top: -8px;
     font-size: 12px;
   }
@@ -421,7 +568,7 @@ button {
   
   .input-group input {
     height: 42px;
-    font-size: 15px;
+    font-size: 16px !important; 
     padding: 0 10px;
   }
   
@@ -430,8 +577,9 @@ button {
     left: 10px;
   }
   
-  .input-group input:focus~label,
-  .input-group input:valid~label {
+  .input-group input:focus ~ label,
+  .input-group input:valid ~ label,
+  .input-group input:not(:placeholder-shown) ~ label {
     top: -8px;
     font-size: 11px;
   }
@@ -534,6 +682,26 @@ button {
   }
 }
 
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .wrapper::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+  
+  .wrapper::-webkit-scrollbar-thumb {
+    background: #0ef;
+    border-radius: 2px;
+  }
+  
+  .wrapper::-webkit-scrollbar-thumb:hover {
+    background: #0af;
+  }
+}
+
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .wrapper {
     box-shadow: 0 0 40px #0ef;
@@ -556,29 +724,10 @@ button {
   .signUp-link p a:hover {
     text-decoration: none;
   }
-}
-
-@media screen and (max-width: 768px) {
-  .input-group input:focus {
-    outline: 2px solid #0ef;
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
   
-  button:focus {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-  }
-  
-  .remember label input:focus {
-    outline: 2px solid #0ef;
-    outline-offset: 2px;
-  }
-  
-  .signUp-link p a:focus {
-    outline: 2px solid #0ef;
-    outline-offset: 2px;
-    border-radius: 3px;
+  button:hover {
+    transform: none;
+    box-shadow: 0 0 10px #0ef;
   }
 }
 
@@ -651,39 +800,35 @@ button {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .input-group input {
-    font-size: 16px !important;
+@media (prefers-reduced-motion: reduce) {
+  .wrapper:hover {
+    animation: none;
+  }
+  
+  .form-wrapper {
+    transition: none;
+  }
+  
+  button {
+    transition: none;
+  }
+  
+  .signUp-link p a {
+    transition: none;
+  }
+  
+  .toast {
+    transition: none;
   }
 }
 
-@media screen and (max-height: 500px) and (orientation: landscape) {
-  .wrapper::-webkit-scrollbar {
-    width: 4px;
+@media print {
+  .wrapper {
+    box-shadow: none;
+    border: 2px solid #000;
   }
   
-  .wrapper::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
+  .toast {
+    display: none;
   }
-  
-  .wrapper::-webkit-scrollbar-thumb {
-    background: #0ef;
-    border-radius: 2px;
-  }
-  
-  .wrapper::-webkit-scrollbar-thumb:hover {
-    background: #0af;
-  }
-}
-
-
-input:-webkit-autofill ~ label,
-input:-webkit-autofill:focus ~ label {
-  top: -5px;
-  font-size: 12px;
-}
-input:-moz-autofill ~ label {
-  top: -5px;
-  font-size: 12px;
 }
