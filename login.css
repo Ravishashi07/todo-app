@@ -63,10 +63,8 @@ h2 {
   color: #fff;
   text-align: center;
 }
-input:focus {
-  outline: none;
-  box-shadow: none ;
-}
+
+
 
 .input-group {
   position: relative;
@@ -677,4 +675,15 @@ button {
   .wrapper::-webkit-scrollbar-thumb:hover {
     background: #0af;
   }
+}
+
+
+input:-webkit-autofill ~ label,
+input:-webkit-autofill:focus ~ label {
+  top: -5px;
+  font-size: 12px;
+}
+input:-moz-autofill ~ label {
+  top: -5px;
+  font-size: 12px;
 }
